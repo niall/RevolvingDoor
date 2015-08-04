@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>{{ name | capitalize }}</h1>
+</div>
+    <div id="staff-info">
+    <table class="table table-striped">
+        <tr>
+            <td>Username</td>
+            <td>{{ current_user.username }}</td>
+        </tr>
+        <tr>
+            <td>E-Mail</td>
+            <td><a href="mailto:{{ current_user.email }}">{{ current_user.email }}</a></td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td>{{ current_user.name }}</td>
+        </tr>
+        <tr>
+            <td>Last Seen</td>
+            <td>00:00:00</td>
+        </tr>
+    </table>
+    </div>
+<a class="btn btn-default" href="{{ url_for('auth.edit_profile') }}">Edit Profile</a>
+<a class="btn btn-default" href="{{ url_for('auth.change_password') }}">Change Password</a>
+{% endblock %}
