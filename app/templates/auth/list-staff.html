@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<div class="page-header">
+    <h2>Staff List</h2>
+</div>
+<table class="table table-striped">
+<tr>
+    <td>ID</td>
+    <td>Username</td>
+    <td>E-Mail</td>
+    <td>Name</td>
+</tr>
+{% for person in staff %}
+<tr>
+    <td>{{ person.id }}</td>
+    <td>{{ person.username }}</td>
+    <td>{{ person.email }}</td>
+    <td>{{ person.name }}</td>
+</tr>
+{% endfor %}
+
+</table>
+<a class="btn btn-info" href="{{ url_for('auth.new_staff') }}">Add New Staff</a>
+
+{% endblock %}

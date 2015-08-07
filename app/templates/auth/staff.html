@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<div class="page-header">
+<h1>Staff Profile: {{ staff.name | capitalize }}</h1>
+</div>
+<div id="staff-info">
+<table class="table table-striped">
+    <tr>
+        <td>Username</td>
+        <td>{{ staff.username }}</td>
+    </tr>
+    <tr>
+        <td>E-Mail</td>
+        <td><a href="mailto:{{ staff.email }}">{{ staff.email }}</a></td>
+    </tr>
+    <tr>
+        <td>Name</td>
+        <td>{{ staff.name }}</td>
+    </tr>
+    <tr>
+        <td>Last Seen</td>
+        <td>00:00:00</td>
+    </tr>
+</table>
+</div>
+<a class="btn btn-info" href="{{ url_for('auth.list_staff') }}">Staff List</a>
+<a class="btn btn-default" href="{{ url_for('auth.edit_profile') }}">Edit Profile</a>
+<a class="btn btn-default" href="{{ url_for('auth.change_password') }}">Change Password</a>
+{% endblock %}

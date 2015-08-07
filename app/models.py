@@ -11,6 +11,7 @@ class Staff(db.Model, UserMixin):
     password_hash = db.Column(db.String(128))
     email = db.Column(db.String(64), unique=True, index=True)
     name = db.Column(db.String(64))
+    added = db.relationship('User', backref='added_by')
 
     def __repr__(self):
         return '<Staff %r>' % self.username
@@ -29,14 +30,17 @@ class Staff(db.Model, UserMixin):
 class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
-    registered = db.Column(db.DateTime, default=datetime.utcnow)
+    registered = db.Column(db.DateTime, default=datetime.utcnow, index=True)
     name = db.Column(db.String(64))
     phone_1 = db.Column(db.String(64))
     phone_2 = db.Column(db.String(64))
+    email = db.Column(db.String(64))
     notes = db.Column(db.Text)
+    area = db.Column(db.String(64))
     postcode = db.Column(db.String(64))
     DoNotUse = db.Column(db.Boolean, default=False)
     nationality_id = db.Column(db.Integer, db.ForeignKey('nationality.id'))
+    added_id = db.Column(db.Integer, db.ForeignKey('staff.id'))
 
     def __repr__(self):
         return '<User %r>' % self.name

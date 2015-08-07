@@ -3,7 +3,7 @@ from flask.ext.login import login_user, logout_user, login_required, current_use
 from . import auth
 from .. import db
 from ..models import Staff
-from .forms import LoginForm, ChangePasswordForm, EditStaffForm
+from .forms import LoginForm, ChangePasswordForm, EditStaffForm, NewStaffForm
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
@@ -46,7 +46,26 @@ def edit_profile():
         current_user.name = form.name.data
         db.session.add(current_user)
         flash('Your profile has been updated.' )
-        return redirect(url_for('main.staff', name=current_user.username))
+        return redirect(url_for('.staff', name=current_user.username))
     form.email.data = current_user.email
     form.name.data = current_user.name
     return render_template('auth/edit-profile.html', form=form)
+
+@auth.route('/new', methods=['GET', 'POST'])
+def new_staff():
+    form = NewStaffForm()
+    if form.validate_on_submit():
+        staff = Staff(username=form.username.data, email=form.email.data, name=form.name.data, password=form.password.data)
+        db.session.add(staff)
+        return redirect(url_for('.staff', name=staff.username))
+    return render_template('auth/edit-profile.html', form=form)
+
+@auth.route('/')
+def list_staff():
+    staff = Staff.query.all()
+    return render_template('auth/list-staff.html', staff=staff)
+
+@auth.route('/<name>')
+def staff(name):
+    staff = Staff.query.filter_by(username=name).first_or_404()
+    return render_template('auth/staff.html', staff=staff)

@@ -18,3 +18,11 @@ class EditStaffForm(Form):
     email = StringField(u'Email')
     name = StringField(u'Name')
     submit = SubmitField('Submit')
+
+class NewStaffForm(Form):
+    username = StringField(u'Username')
+    email = StringField(u'Email')
+    name = StringField(u'Name')
+    password = PasswordField(u'Password')
+    submit = SubmitField(u'Submit')
+

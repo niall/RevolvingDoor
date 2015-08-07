@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<div class="page-header">
+    <h2>Profile <small>{{ user.name }}</small></h2>
+</div>
+
+<div class="col-md-4">
+    <div class="panel panel-primary">
+    <!-- Default panel contents -->
+        <div class="panel-heading">Details</div>
+  <!-- Table -->
+    <table class="table table-striped">
+        <tr>
+            <td style="font-weight: bold;">ID</td>
+            <td>{{ user.id }}</td>
+        </tr>
+        <tr>
+            <td>Registered</td>
+            <td>{{ moment(user.registered).format('LLL') }}</td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td>{{ user.name }}</td>
+        </tr>
+        <tr>
+            <td>Phone #1</td>
+            <td>{{ user.phone_1 }}</td>
+        </tr>
+        {% if user.phone_2 is not none %}
+        <tr>
+            <td>Phone #2</td>
+            <td>{{ user.phone_2 }}</td>
+        </tr>
+        <tr>
+            <td>Postcode</td>
+            <td>{{ user.postcode }}</td>
+        </tr>
+        {% endif %}
+        <tr>
+            <td>Added by</td>
+            <td>{{ user.added_by.name }}</td>
+        </tr>
+    </table>
+    </div>
+</div>
+<div class="col-md-4"></div>
+<div class="col-md-4"><iframe width="350" height="250" frameborder="0" style="border:0" src="{{ map_url }}" allowfullscreen></iframe></div>
+
+{% endblock %}
