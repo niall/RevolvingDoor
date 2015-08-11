@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<div class="page-header">
+<h2>{{ company.name }}<small> Site List</small></h2>
+</div>
+<table class="table table-striped">
+<tr>
+    <td>ID</td>
+    <td>Site Name</td>
+    <td>Manager Name</td>
+    <td>Manager Phone</td>
+</tr>
+{% for site in sites  %}
+<tr>
+    <td>{{ site.id }}</td>
+    <td><a href="#">{{ site.name }}</a></td>
+    <td>{{ site.site_manager }}</td>
+    <td>#</td>
+</tr>
+{% endfor %}
+</table>
+
+
+{% endblock %}
+
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(32))
+    address = db.Column(db.String(64))
+    postcode = db.Column(db.String(16))
+    start_time = db.Column(db.String(8))
+    company_id = db.Column(db.Integer, db.ForeignKey('company.id'))
+    site_manager_id = db.Column(db.Integer, db.ForeignKey('site_managers.id'))

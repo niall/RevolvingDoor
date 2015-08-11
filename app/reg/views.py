@@ -35,4 +35,4 @@ def name(type, value):
     kwargs = {type: value}
     user = User.query.filter_by(**kwargs).first_or_404()
     map_url = map_lookup(user.postcode)
-    return render_template('reg/profile.html', user=user, map_url=map_url)
+    return render_template('reg/reg-profile.html', user=user, map_url=map_url)

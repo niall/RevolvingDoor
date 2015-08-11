@@ -7,3 +7,26 @@
     <p>{{ person.name }}</p>
 {% endfor %}
 {% endblock %}
+
+
+
+
+<div id="staff-info">
+<table class="table table-striped">
+    <tr>
+        <td>Username</td>
+        <td>{{ staff.username }}</td>
+    </tr>
+    <tr>
+        <td>E-Mail</td>
+        <td><a href="mailto:{{ staff.email }}">{{ staff.email }}</a></td>
+    </tr>
+    <tr>
+        <td>Name</td>
+        <td>{{ staff.name }}</td>
+    </tr>
+    <tr>
+        <td>Last Seen</td>
+        <td>00:00:00</td>
+    </tr>
+</table>

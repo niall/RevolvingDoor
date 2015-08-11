@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<div class="page-header">
+<h2>Company List</h2>
+</div>
+<table class="table table-striped">
+<tr>
+    <td>ID</td>
+    <td>Name</td>
+    <td>Sites</td>
+    <td>Managers</td>
+</tr>
+{% for company in companies  %}
+<tr>
+    <td>{{ company.id }}</td>
+    <td><a href="{{ url_for('company.company_profile', type='id', value=company.id) }}">{{ company.name }}</a></td>
+    <td>{{ company.sites.count() }}</td>
+    <td>{{ company.managers.count() }}</td>
+</tr>
+{% endfor %}
+</table>
+
+<a href="{{ url_for('company.new_company') }}">Add New Company</a>
+
+{% endblock %}

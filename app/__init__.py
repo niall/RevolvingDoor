@@ -38,5 +38,7 @@ def create_app(config_name):
     from .reg import reg as reg_blueprint
     app.register_blueprint(reg_blueprint, url_prefix='/reg')
 
+    from .company import company as company_blueprint
+    app.register_blueprint(company_blueprint, url_prefix='/company')
     return app
 

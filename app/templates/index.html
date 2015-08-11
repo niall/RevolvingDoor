@@ -3,7 +3,7 @@
 
 {% block page_content %}
 <div class="page-header">
-    <h3>Welcome to Fomac RevolvingDoor: {% if current_user.is_authenticated() %}{{ current_user.username | capitalize}}
+    <h3>Welcome to Fomac: {% if current_user.is_authenticated() %}{{ current_user.username | capitalize}}
     {% else %}
     Please login to access
     {% endif %}</h3>
@@ -11,7 +11,9 @@
     {% if not current_user.is_authenticated() %}
     <a href="{{ url_for('auth.login') }}">Login</a>
     {% else %}
-    <a href="{{ url_for('reg.new') }}">Register caller</a>
+    <p><a href="{{ url_for('reg.new') }}">Register caller</a></p>
+    <p><a href="{{ url_for('company.company_index') }}">Company List</a></p>
+    <p><a href="{{ url_for('auth.list_staff') }}">Staff List</a></p>
     {% endif %}
 
 {% endblock %}

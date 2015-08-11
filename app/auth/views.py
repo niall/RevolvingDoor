@@ -45,11 +45,11 @@ def edit_profile():
         current_user.email = form.email.data
         current_user.name = form.name.data
         db.session.add(current_user)
-        flash('Your profile has been updated.' )
+        flash('Your profile has been updated.')
         return redirect(url_for('.staff', name=current_user.username))
     form.email.data = current_user.email
     form.name.data = current_user.name
-    return render_template('auth/edit-profile.html', form=form)
+    return render_template('auth/edit-company-reg-profile.html', form=form)
 
 @auth.route('/new', methods=['GET', 'POST'])
 def new_staff():

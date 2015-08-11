@@ -29,6 +29,4 @@ class RegistrationForm(Form):
         if not postcode_validate(field.data):
             raise ValidationError('Enter valid postcode')
 
-class BasicRegistration(Form):
-    name = StringField(u'Name')
-    submit = SubmitField(u'Submit')
+

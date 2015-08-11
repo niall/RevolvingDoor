@@ -1,7 +1,7 @@
 from datetime import datetime
 from flask import render_template, session, redirect, url_for, current_app, flash
 from .. import db
-from ..models import Staff, User, Nationality
+from ..models import Staff, User, Nationality, Company
 from ..email import send_email
 from . import main
 from .forms import NameForm, RegistrationForm
@@ -23,6 +23,7 @@ def index():
         session['name'] = form.name.data
         return redirect(url_for('.index'))
     return render_template('index.html', form=form, name=session.get('name'))
+
 
 @main.route('/secret')
 @login_required

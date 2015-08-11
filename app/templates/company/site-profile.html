@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<div class="page-header">
+<h2>{{ company.name }} - {{ site.name }}<small> Site Profile</small></h2>
+</div>
+<table class="table table-striped">
+<tr>
+    <td>ID</td>
+    <td>Site Name</td>
+    <td>Manager Name</td>
+    <td>Manager Phone</td>
+</tr>
+<tr>
+    <td>{{ site.id }}</td>
+    <td>{{ site.name }}</td>
+    <td>{{ site.site_manager.first().name }}</td>
+    <td>{{ site.site_manager.first().phone }}</td>
+</tr>
+</table>
+
+
+{% endblock %}

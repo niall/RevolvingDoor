@@ -54,7 +54,56 @@ class Nationality(db.Model):
     def __repr__(self):
         return '<Nationality %r>' % self.country
 
+class Site(db.Model):
+    __tablename__ = 'sites'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(32))
+    address = db.Column(db.String(64))
+    postcode = db.Column(db.String(16))
+    start_time = db.Column(db.String(8))
+    company_id = db.Column(db.Integer, db.ForeignKey('company.id'))
+    site_manager = db.relationship('SiteManager', backref='site', lazy='dynamic')
+
+    def __repr__(self):
+        return '<Site: %r>' % self.name
+
+class Company(db.Model):
+    __tablename__ = 'company'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64))
+    sites = db.relationship('Site', backref='sites', lazy='dynamic')
+    managers = db.relationship('SiteManager', backref='managers', lazy='dynamic')
+
+    def __init__(self, name):
+        self.name = name
+
+    def __repr__(self):
+        return '<Company: %r>' % self.name
+
+    class Meta:
+        ordering = (('id', 'desc'),)
+
+class SiteManager(db.Model):
+    __tablename__ = 'site_managers'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64))
+    email = db.Column(db.String(64))
+    phone = db.Column(db.String(64))
+    company_id = db.Column(db.Integer, db.ForeignKey('company.id'))
+    site_id = db.Column(db.Integer, db.ForeignKey('sites.id'))
+
+    def __repr__(self):
+        return '<Site Manager: %r>' % self.name
+
+class Trades(db.Model):
+    __tablename__ = 'trades'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64))
+
 
 @login_manager.user_loader
 def load_user(staff_id):
     return Staff.query.get(int(staff_id))
+
+
+

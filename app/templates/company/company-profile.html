@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+
+{% block page_content %}
+<div class="page-header">
+    <h2>Company Profile <small>{{ company.name }}</small></h2>
+</div>
+    <p>Site Managers: {{ manager.count() }}</p>
+    <p>Sites: {{ company.sites.count() }}</p>
+
+<table class="table table-striped">
+<tr>
+    <td>Site ID</td>
+    <td>Site Name</td>
+    <td>Site Manager</td>
+    <td>Manager Contact</td>
+</tr>
+{% for person in manager.all() %}
+    <td>{{ person.site.id }}</td>
+    <td>{{ person.site.name }}</td>
+    <td>{{ person.name }}</td>
+    <td>{{ person.phone }}</td>
+{% endfor %}
+</table>
+
+
+<a href="{{ url_for('company.new_manager', type='id', value=company.id) }}">Add Manager</a>
+<a href="{{ url_for('company.new_site', type='id',value=company.id) }}">Add Site</a>
+{% endblock %}
+
