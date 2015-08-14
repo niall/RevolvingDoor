@@ -15,11 +15,13 @@
     <td>Site Manager</td>
     <td>Manager Contact</td>
 </tr>
-{% for person in manager.all() %}
-    <td>{{ person.site.id }}</td>
-    <td>{{ person.site.name }}</td>
-    <td>{{ person.name }}</td>
-    <td>{{ person.phone }}</td>
+{% for site in sites %}
+<tr>
+    <td>{{ site.id }}</td>
+    <td><a href="{{ url_for('company.site_profile', id=site.id) }}">{{ site.name }}</a></td>
+    <td>{{ site.site_manager.first().name }}</td>
+    <td>{{ site.site_manager.first().phone }}</td>
+</tr>
 {% endfor %}
 </table>
 

@@ -1,6 +1,6 @@
 from flask.ext.wtf import Form
 from wtforms import StringField, SubmitField, TextAreaField, BooleanField, SelectField
-from wtforms.validators import DataRequired, Regexp, email, ValidationError
+from wtforms.validators import DataRequired, Regexp, email, ValidationError, Optional
 from app.reg.utils import postcode_validate
 
 class OldRegistrationForm(Form):
@@ -18,7 +18,8 @@ class RegistrationForm(Form):
     name = StringField(u'Name')
     phone_1 = StringField(u'Phone #1')
     phone_2 = StringField(u'Phone #2')
-    email = StringField(u'Email', validators=[email()])
+    role = SelectField(u'Role', coerce=int)
+    email = StringField(u'Email', validators=[email(), Optional()])
     postcode = StringField(u'Postcode')
     nationality = SelectField(u'Nationality', coerce=int)
     notes = TextAreaField(u'Notes')

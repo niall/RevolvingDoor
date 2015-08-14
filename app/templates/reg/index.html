@@ -3,15 +3,27 @@
 {% block title %}Fomac Registered Users{% endblock %}
 {% block page_content %}
 <div class="page-header">Registered Users</div>
+
+<table class="table table-striped">
+<tr>
+    <td>ID</td>
+    <td>Name</td>
+    <td>Role</td>
+</tr>
 {% for person in registered %}
-    <p>{{ person.name }}</p>
+<tr>
+    <td>{{ person.id }}</td>
+    <td><a href="{{ url_for('reg.profile', type='name', value=person.name) }}">{{ person.name }}</a></td>
+    <td>{{ person.role.name }}</td>
+</tr>
 {% endfor %}
+</table>
 {% endblock %}
 
 
 
 
-<div id="staff-info">
+<div id="user-info">
 <table class="table table-striped">
     <tr>
         <td>Username</td>
@@ -30,3 +42,11 @@
         <td>00:00:00</td>
     </tr>
 </table>
+
+
+    @reg.route('/<type>/<value>')
+def profile(type, value):
+    kwargs = {type: value}
+    user = User.query.filter_by(**kwargs).first_or_404()
+    map_url = map_lookup(user.postcode)
+    return render_template('reg/reg-profile.html', user=user, map_url=map_url)

@@ -42,3 +42,5 @@ def create_app(config_name):
     app.register_blueprint(company_blueprint, url_prefix='/company')
     return app
 
+    from .jobs import jobs as job_blueprint
+    app.register_blueprint(job_blueprint, url_prefix='/jobs')

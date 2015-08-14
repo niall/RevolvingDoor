@@ -16,3 +16,12 @@ class RegistrationForm(Form):
     DoNotUse = BooleanField(u'Blacklist')
     submit = SubmitField('Submit')
 
+class NationalityAddForm(Form):
+    name = StringField(u'Name')
+    submit = SubmitField('Submit')
+
+class RoleAddForm(Form):
+    name = StringField(u'Name')
+    rate = StringField(u'Rate')
+    department = SelectField(u'Department', choices=[('trade', 'Trades & Labour'), ('professional', 'Professional & Technical')])
+    submit = SubmitField(u'Submit')

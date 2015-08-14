@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf%}
+
+{% block page_content %}
+    <div class="page-header"><h2>Add Role</h2></div>
+    <div class="col-lg-4">
+        {{ wtf.quick_form(form) }}
+    </div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+    <table class="table table-striped">
+    <tr>
+        <td>Name</td>
+        <td>Rate</td>
+    </tr>
+    {% for job in role %}
+    <tr>
+        <td>{{ job.name|capitalize }}</td>
+        <td>{{ job.rate }}</td>
+    </tr>
+    {% endfor %}
+    </table>
+    </div>
+{% endblock %}

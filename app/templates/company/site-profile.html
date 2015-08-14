@@ -1,23 +1,47 @@
 {% extends "base.html" %}
 
 {% block page_content %}
-<div class="page-header">
-<h2>{{ company.name }} - {{ site.name }}<small> Site Profile</small></h2>
-</div>
-<table class="table table-striped">
-<tr>
-    <td>ID</td>
-    <td>Site Name</td>
-    <td>Manager Name</td>
-    <td>Manager Phone</td>
-</tr>
-<tr>
-    <td>{{ site.id }}</td>
-    <td>{{ site.name }}</td>
-    <td>{{ site.site_manager.first().name }}</td>
-    <td>{{ site.site_manager.first().phone }}</td>
-</tr>
-</table>
+    <div class="page-header">
+        <h2>{{ company.name }} - {{ site.name }}<small> Site Profile</small></h2>
+    </div>
+    <div class="col-md-8">
+        <table class="table table-striped">
+        <tr>
+            <td>ID</td>
+            <td>Site Name</td>
+            <td>Manager Name</td>
+            <td>Manager Phone</td>
+        </tr>
+        <tr>
+            <td>{{ site.id }}</td>
+            <td>{{ site.name }}</td>
+            <td>{{ site.site_manager.first().name }}</td>
+            <td>{{ site.site_manager.first().phone }}</td>
+        </tr>
+        </table>
+    </div>
+    <div class="col-md-4">
+        <iframe width="100%" height="250px" frameborder="0" style="border:0" src="{{ map_url }}" allowfullscreen></iframe>
+    </div>
+    <div class="col-md-12">
+        <div class="page-header"><h3>Current Job List</h3></div>
+        <table class="table table-striped">
+            <tr>
+                <td>Job ID</td>
+                <td>Job Role</td>
+                <td>Job Start Date</td>
+                <td>Assigned To</td>
+            </tr>
+            {% for job in jobs %}
+            <tr>
+                <td>{{ job.id }}</td>
+                <td>{{ job.role.name }}</td>
+                <td>{{ job.start_date }}</td>
+                <td>{{ job.user }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
 
 
 {% endblock %}

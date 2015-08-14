@@ -33,3 +33,18 @@ def map_lookup(postcode):
     api_key = '&key=AIzaSyDnb8mAYrrCipHmrbm3qbDooyjzh97Z7o0'
     full_url = 'https://www.google.com/maps/embed/v1/place?q=' + postcode + api_key
     return full_url
+
+"""
+Checks Journey Time:
+    Not Finished, No Validation or Serve Map
+"""
+def journey(start,finish):
+    api_key = '&key=AIzaSyDnb8mAYrrCipHmrbm3qbDooyjzh97Z7o0'
+    origin = 'origins=' + start
+    destination = '&destinations=' + finish
+    mode = '&mode=transit'
+    url = 'https://maps.googleapis.com/maps/api/distancematrix/json?'
+    request = requests.get(url + origin + destination + api_key)
+    data = request.json()
+    result = [data['rows'][0]['elements'][0]['distance']['text'], data['rows'][0]['elements'][0]['duration']['text']]
+    return result

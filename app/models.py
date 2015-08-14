@@ -39,8 +39,10 @@ class User(db.Model):
     area = db.Column(db.String(64))
     postcode = db.Column(db.String(64))
     DoNotUse = db.Column(db.Boolean, default=False)
+    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     nationality_id = db.Column(db.Integer, db.ForeignKey('nationality.id'))
     added_id = db.Column(db.Integer, db.ForeignKey('staff.id'))
+    job_id = db.relationship('Job', backref='user', lazy='dynamic')
 
     def __repr__(self):
         return '<User %r>' % self.name
@@ -50,6 +52,9 @@ class Nationality(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     country = db.Column(db.String(64))
     users = db.relationship('User', backref='nationality')
+
+    def __init__(self, country):
+        self.country = country
 
     def __repr__(self):
         return '<Nationality %r>' % self.country
@@ -63,6 +68,7 @@ class Site(db.Model):
     start_time = db.Column(db.String(8))
     company_id = db.Column(db.Integer, db.ForeignKey('company.id'))
     site_manager = db.relationship('SiteManager', backref='site', lazy='dynamic')
+    jobs = db.relationship('Job', backref='site', lazy='dynamic')
 
     def __repr__(self):
         return '<Site: %r>' % self.name
@@ -71,8 +77,8 @@ class Company(db.Model):
     __tablename__ = 'company'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64))
-    sites = db.relationship('Site', backref='sites', lazy='dynamic')
-    managers = db.relationship('SiteManager', backref='managers', lazy='dynamic')
+    sites = db.relationship('Site', backref='company', lazy='dynamic')
+    managers = db.relationship('SiteManager', backref='company', lazy='dynamic')
 
     def __init__(self, name):
         self.name = name
@@ -95,10 +101,35 @@ class SiteManager(db.Model):
     def __repr__(self):
         return '<Site Manager: %r>' % self.name
 
-class Trades(db.Model):
-    __tablename__ = 'trades'
+class Role(db.Model):
+    __tablename__ = 'roles'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64))
+    department = db.Column(db.String(16))
+    rate = db.Column(db.String(16))
+    users = db.relationship('User', backref='role', lazy='dynamic')
+    job_id = db.relationship('Job', backref='role', lazy='dynamic')
+
+    def __init__(self, name, department, rate):
+        self.name = name
+        self.department = department
+        self.rate = rate
+
+    def __repr__(self):
+        return '<Role: %r>' % self.name
+
+
+class Job(db.Model):
+    __tablename__ = 'jobs'
+    id = db.Column(db.Integer, primary_key=True)
+    site_id = db.Column(db.Integer, db.ForeignKey('sites.id'))
+    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    start_date = db.Column(db.Date)
+    end_date = db.Column(db.Date)
+
+    def __repr__(self):
+        return '<Job: %r for %r (%r) ID#%r>' %(self.role.name, self.site.name, self.site.company.name, self.id)
 
 
 @login_manager.user_loader

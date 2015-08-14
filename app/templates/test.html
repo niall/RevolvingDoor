@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block scripts %}
+    {{super()}}
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.js"></script>
+
+<!-- Latest compiled and minified Locales -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="{{ url_for('static', filename='tableExport.js')}}"></script>
+<script src="{{ url_for('static', filename='jquery.base64.js') }}"></script>
+{% endblock %}
+
+{% block page_content %}
+<table data-toggle="table" data-url="data2.json" data-show-columns="true" data-search="true" data-show-refresh="true" data-show-toggle="true" data-show-export="true" data-pagination="true" data-height="299">
+    <thead>
+    <tr>
+        <th data-field="id">ID</th>
+        <th data-field="name">Item Name</th>
+        <th data-field="price">Item Price</th>
+</table>
+
+<table data-toggle="table" data-show-columns="true" data-search="true" data-show-refresh="true" data-show-toggle="true" data-show-export="true" data-pagination="true" data-height="299">
+    <thead>
+        <tr>
+            <th>Item ID</th>
+            <th>Item Name</th>
+            <th>Item Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>Item 1</td>
+            <td>$1</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Item 2</td>
+            <td>$2</td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %}

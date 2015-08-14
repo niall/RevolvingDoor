@@ -4,51 +4,79 @@
 <div class="page-header">
     <h2>Profile <small>{{ user.name }}</small></h2>
 </div>
-
-<div class="col-md-4">
-    <div class="panel panel-primary">
-    <!-- Default panel contents -->
-        <div class="panel-heading">Details</div>
-  <!-- Table -->
+<div>
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+        <!-- Default panel contents -->
+            <div class="panel-heading">Details</div>
+      <!-- Table -->
+        <table class="table table-striped">
+            <tr>
+                <td style="font-weight: bold;">ID</td>
+                <td>{{ user.id }}</td>
+            </tr>
+            <tr>
+                <td>Registered</td>
+                <td>{{ moment(user.registered).format('LLL') }}</td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td>{{ user.name }}</td>
+            </tr>
+            <tr>
+                <td>Role</td>
+                <td>{{ user.role.name }}</td>
+            </tr>
+            <tr>
+                <td>Nationality</td>
+                <td>{{ user.nationality.country }}</td>
+            </tr>
+            <tr>
+                <td>Phone #1</td>
+                <td>{{ user.phone_1 }}</td>
+            </tr>
+            {% if user.phone_2 is not none %}
+            <tr>
+                <td>Phone #2</td>
+                <td>{{ user.phone_2 }}</td>
+            </tr>
+            <tr>
+                <td>Postcode</td>
+                <td>{{ user.postcode }}</td>
+            </tr>
+            {% endif %}
+            <tr>
+                <td>Added by</td>
+                <td>{{ user.added_by.name }}</td>
+            </tr>
+        </table>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-6"><iframe width="100%" height="380px" frameborder="0" style="border:0" src="{{ map_url }}" allowfullscreen></iframe></div>
+</div>
+<div class="col-md-12">
+    <div class="page-header"><h3>Available Jobs for {{ user.role.name }}</h3></div>
     <table class="table table-striped">
         <tr>
-            <td style="font-weight: bold;">ID</td>
-            <td>{{ user.id }}</td>
+            <td>Job ID</td>
+            <td>Company</td>
+            <td>Site</td>
+            <td>Start Date</td>
+            <td>Distance</td>
+            <td>Journey Time</td>
         </tr>
+        {% for i in range(n) %}
         <tr>
-            <td>Registered</td>
-            <td>{{ moment(user.registered).format('LLL') }}</td>
+            <td>{{ jobs[i].id }}</td>
+            <td>{{ jobs[i].site.company.name }}</td>
+            <td>{{ jobs[i].site.name }}</td>
+            <td>{{ jobs[i].start_date }}</td>
+            <td>{{ distance[i] }}</td>
+            <td>{{ duration[i] }}</td>
         </tr>
-        <tr>
-            <td>Name</td>
-            <td>{{ user.name }}</td>
-        </tr>
-        <tr>
-            <td>Nationality</td>
-            <td>{{ user.nationality.country }}</td>
-        </tr>
-        <tr>
-            <td>Phone #1</td>
-            <td>{{ user.phone_1 }}</td>
-        </tr>
-        {% if user.phone_2 is not none %}
-        <tr>
-            <td>Phone #2</td>
-            <td>{{ user.phone_2 }}</td>
-        </tr>
-        <tr>
-            <td>Postcode</td>
-            <td>{{ user.postcode }}</td>
-        </tr>
-        {% endif %}
-        <tr>
-            <td>Added by</td>
-            <td>{{ user.added_by.name }}</td>
-        </tr>
+        {% endfor %}
     </table>
-    </div>
-</div>
-<div class="col-md-4"></div>
-<div class="col-md-4"><iframe width="350" height="250" frameborder="0" style="border:0" src="{{ map_url }}" allowfullscreen></iframe></div>
 
+</div>
 {% endblock %}
