@@ -8,7 +8,9 @@
     <div class="col-md-4">
         <div class="panel panel-primary">
         <!-- Default panel contents -->
-            <div class="panel-heading">Details</div>
+            <div class="panel-heading">Details
+                <a class="btn btn-default"  href="{{ url_for('reg.edit_profile', type='name', value=user.name) }}">Edit</a></td>
+            </div>
       <!-- Table -->
         <table class="table table-striped">
             <tr>

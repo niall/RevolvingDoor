@@ -2,9 +2,9 @@ from flask.ext.wtf import Form
 from wtforms import StringField, SubmitField, TextAreaField, BooleanField, SelectField, PasswordField
 from wtforms.validators import DataRequired, Regexp, email
 
-class NameForm(Form):
-    name = StringField('What is your name?', validators=[DataRequired()])
-    submit = SubmitField('Submit')
+class LookupForm(Form):
+    phone = StringField(u'Phone')
+    submit = SubmitField(u'Submit')
 
 class RegistrationForm(Form):
     name = StringField(u'Name')

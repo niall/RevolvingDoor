@@ -8,8 +8,9 @@
 {% endblock %}
 
 {% block navbar %}
-<div class="navbar navbar-default" role="navigation>">
 
+<div class="navbar navbar-default" role="navigation>">
+<div class="fomac-logo" style="margin-left:5%"><a href="{{ url_for('main.index') }}" class="pull-left"><img height="50px" src="{{ url_for('static', filename='logo.png') }}"></a></div>
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-target="collapse" data-target=".navbar-collapse">
@@ -18,7 +19,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="{{ url_for('main.index') }}" class="pull-left"><img height="50px" src="{{ url_for('static', filename='logo.png') }}"></a>
+
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">

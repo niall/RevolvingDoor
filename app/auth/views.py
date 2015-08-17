@@ -14,7 +14,7 @@ def login():
             login_user(staff, form.remember_me.data)
             return redirect(request.args.get('next') or url_for('main.index'))
         flash('Invalid Username or Password')
-    return render_template('auth/login-test.html', form=form)
+    return render_template('auth/login.html', form=form)
 
 @auth.route('/logout')
 @login_required

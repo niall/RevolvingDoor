@@ -9,12 +9,14 @@
     <td>ID</td>
     <td>Name</td>
     <td>Role</td>
+    <td>Phone</td>
 </tr>
 {% for person in registered %}
 <tr>
     <td>{{ person.id }}</td>
     <td><a href="{{ url_for('reg.profile', type='name', value=person.name) }}">{{ person.name }}</a></td>
     <td>{{ person.role.name }}</td>
+    <td>{{ person.phone_1 }}</td>
 </tr>
 {% endfor %}
 </table>

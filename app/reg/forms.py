@@ -2,6 +2,7 @@ from flask.ext.wtf import Form
 from wtforms import StringField, SubmitField, TextAreaField, BooleanField, SelectField
 from wtforms.validators import DataRequired, Regexp, email, ValidationError, Optional
 from app.reg.utils import postcode_validate
+from app.models import User
 
 class OldRegistrationForm(Form):
     name = StringField(u'Name', validators=[DataRequired()])
@@ -16,7 +17,7 @@ class OldRegistrationForm(Form):
 
 class RegistrationForm(Form):
     name = StringField(u'Name')
-    phone_1 = StringField(u'Phone #1')
+    phone_1 = StringField(u'Phone #1', validators=[DataRequired()])
     phone_2 = StringField(u'Phone #2')
     role = SelectField(u'Role', coerce=int)
     email = StringField(u'Email', validators=[email(), Optional()])
@@ -29,5 +30,11 @@ class RegistrationForm(Form):
     def validate_postcode(form, field):
         if not postcode_validate(field.data):
             raise ValidationError('Enter valid postcode')
+
+    def validate_phone_1(form, field):
+        existing = User.query.filter_by(phone_1=field.data).first()
+        if existing is not None:
+            raise ValidationError('Phone is already registered to: ' + existing.name)
+
 
 
